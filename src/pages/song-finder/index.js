@@ -72,7 +72,11 @@ const ListPlayLists = ({ playlists, loadMore }) => (
         </h3>
         <p>{playlist.description}</p>
         {playlist.images[0] ? (
-          <img src={playlist.images[0].url} height="100px" />
+          <img
+            src={playlist.images[0].url}
+            height="100px"
+            alt={playlist.name}
+          />
         ) : null}
         <Link to={`/playlist/?id=${playlist.id}`}>Use this playlist</Link>
       </div>
