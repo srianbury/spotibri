@@ -1,10 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `srianbury Gatsby Default Starter`,
-    description: `a modified version of the default starter`,
+    title: `spotibry`,
+    description: `Additional spotify features!`,
     author: `srianbury`,
   },
   plugins: [
+    "gatsby-plugin-use-query-params",
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -27,6 +28,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-use-query-params`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

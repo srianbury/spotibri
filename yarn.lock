@@ -2531,6 +2531,10 @@ base64id@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-2.0.0.tgz#2770ac6bc47d312af97a8bf9a634342e0cd25cb6"
 
+base64url@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/base64url/-/base64url-3.0.1.tgz#6399d572e2bc3f90a9a8b22d5dbb0a32d33f788d"
+
 base@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/base/-/base-0.11.2.tgz#7bde5ced145b6d551a90db87f83c558b4eb48a8f"
@@ -3722,6 +3726,10 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
 
 crypto-random-string@^2.0.0:
   version "2.0.0"
@@ -5604,6 +5612,10 @@ gatsby-plugin-typescript@^2.4.21:
     "@babel/preset-typescript" "^7.10.4"
     "@babel/runtime" "^7.11.2"
     babel-plugin-remove-graphql-queries "^2.9.20"
+
+gatsby-plugin-use-query-params@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-use-query-params/-/gatsby-plugin-use-query-params-1.0.1.tgz#5e4982580d2e9bad15d243186cff379afef8a207"
 
 gatsby-react-router-scroll@^3.0.14:
   version "3.0.14"
@@ -10577,6 +10589,10 @@ serialize-javascript@^4.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+serialize-query-params@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-1.2.3.tgz#0d6728c2378fa692233af80f4a72765db06f1069"
+
 serve-index@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/serve-index/-/serve-index-1.9.1.tgz#d3768d69b1e7d82e5ce050fff5b453bea12a9239"
@@ -12013,6 +12029,12 @@ urql@^1.9.7:
 use-callback-ref@^1.2.1, use-callback-ref@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.2.4.tgz#d86d1577bfd0b955b6e04aaf5971025f406bea3c"
+
+use-query-params@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.8.tgz#61d5e2ad903da9ed807383e509b4b52343c886ad"
+  dependencies:
+    serialize-query-params "^1.2.3"
 
 use-sidecar@^1.0.1:
   version "1.0.3"
