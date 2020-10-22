@@ -44,7 +44,7 @@ const Playlist = () => {
   useEffect(() => {
     async function read() {
       const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?market=from_token&fields=items(track(id%2Cname%2Cartists.name%2Calbum(name%2Cimages)))&limit=100&offset=0`,
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?market=from_token&fields=items(track(id%2Cname%2Cartists.name%2Cpreview_url%2Calbum(names%2Cimages)))&limit=100&offset=0`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -148,6 +148,14 @@ const PlaylistDetails = ({ tracks, matches, matchesOnly, setMathcesOnly }) => {
               height="100"
             />
           </div>
+          {track.preview_url ? (
+            <audio controls>
+              <source src={track.preview_url} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          ) : (
+            <div>No Preview Available</div>
+          )}
           <hr />
         </div>
       ))}
