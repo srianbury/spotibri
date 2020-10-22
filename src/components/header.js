@@ -6,7 +6,7 @@ import Login from "./login";
 import Logout from "./logout";
 
 const Header = ({ siteTitle }) => {
-  const { user } = useContext(AuthenticationContext);
+  const auth = useContext(AuthenticationContext);
   return (
     <header>
       <div>
@@ -17,7 +17,7 @@ const Header = ({ siteTitle }) => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>{user ? <Logout /> : <Login />}</li>
+          <li>{auth && auth.user ? <Logout /> : <Login />}</li>
         </ul>
       </div>
     </header>

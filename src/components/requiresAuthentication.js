@@ -3,11 +3,11 @@ import AuthenticationContext from "./authenticationContext";
 import { RequiresLogin } from "./login";
 
 const requiresAuthentication = Component => props => {
-  const { user } = useContext(AuthenticationContext);
-  if (!user) {
-    return <RequiresLogin />;
+  const auth = useContext(AuthenticationContext);
+  if (auth && auth.user) {
+    return <Component {...props} />;
   }
-  return <Component {...props} />;
+  return <RequiresLogin />;
 };
 
 export default requiresAuthentication;

@@ -29,7 +29,7 @@ async function findMatches(tracks, searchTerm) {
 }
 
 const Playlist = () => {
-  const { user } = useContext(AuthenticationContext);
+  const auth = useContext(AuthenticationContext);
   const playlistId = useQueryParam("id")[0];
   const [playlistData, setPlaylistData] = useState(null);
   const [matches, setMatches] = useState(null);
@@ -48,7 +48,7 @@ const Playlist = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.access_token}`,
+            Authorization: `Bearer ${auth.user.access_token}`,
           },
         }
       );
@@ -56,7 +56,7 @@ const Playlist = () => {
       setPlaylistData(result.items);
     }
     read();
-  }, [playlistId, user.access_token]);
+  }, [playlistId]);
 
   return (
     <Layout title="Playlist">

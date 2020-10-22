@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "srianbury",
   "dependencies": {
+    "@loadable/component": "^5.14.0",
     "base64url": "^3.0.1",
     "crypto-js": "^4.0.0",
     "gatsby": "^2.24.67",

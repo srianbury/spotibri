@@ -15,11 +15,13 @@ function getAuthValues(hash) {
 }
 
 const Callback = () => {
-  const { login } = useContext(AuthenticationContext);
+  const auth = useContext(AuthenticationContext);
+
   useEffect(() => {
     const user = getAuthValues(window.location.hash);
-    login(user);
+    auth.login(user);
     navigate("/");
+    // eslint-disable-next-line
   }, []);
 
   return <Layout title="Callback">hi</Layout>;
