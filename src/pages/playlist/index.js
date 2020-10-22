@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Layout from "../../components/layout";
 import { useQueryParam } from "use-query-params";
 import AuthenticationContext from "../../components/authenticationContext";
+import requiresAuthentication from "../../components/requiresAuthentication";
 
 async function checkIfContains(track, url, searchString) {
   const response = await fetch(url);
@@ -24,7 +25,6 @@ async function findMatches(tracks, searchTerm) {
   });
 
   const searchResults = await Promise.all(promises);
-  console.log({ searchResults });
   return searchResults.filter(node => node !== null);
 }
 
@@ -116,7 +116,6 @@ const LyricLookerUpper = ({ handleSearch }) => {
 };
 
 const PlaylistDetails = ({ tracks, matches, matchesOnly, setMathcesOnly }) => {
-  console.log({ tracks });
   return (
     <div>
       {matches ? (
@@ -125,7 +124,7 @@ const PlaylistDetails = ({ tracks, matches, matchesOnly, setMathcesOnly }) => {
             name="matches-only"
             type="checkbox"
             checked={matchesOnly}
-            onClick={() => setMathcesOnly(prev => !prev)}
+            onChange={() => setMathcesOnly(prev => !prev)}
           />
           <label htmlFor="matches-only">Matches only</label>
         </>
@@ -156,4 +155,4 @@ const PlaylistDetails = ({ tracks, matches, matchesOnly, setMathcesOnly }) => {
   );
 };
 
-export default Playlist;
+export default requiresAuthentication(Playlist);

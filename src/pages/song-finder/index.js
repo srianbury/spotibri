@@ -22,7 +22,6 @@ const SongFinder = () => {
         },
       });
       const result = await response.json();
-      console.log({ result });
       setPlaylistsData(cur => ({
         ...cur,
         ...result,
