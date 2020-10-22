@@ -18,11 +18,10 @@ const SongFinder = () => {
       const response = await fetch(playlistUrl, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.auth.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       });
       const result = await response.json();
-      console.log({ result });
       setPlaylistsData(cur => ({
         ...cur,
         ...result,
@@ -31,7 +30,7 @@ const SongFinder = () => {
       }));
     }
     read();
-  }, [user.auth.access_token, playlistUrl]);
+  }, [user.access_token, playlistUrl]);
   return (
     <Layout title="Song Finder">
       {playlistsData === null ? (
