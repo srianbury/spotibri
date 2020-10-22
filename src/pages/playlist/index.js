@@ -33,6 +33,7 @@ const Playlist = () => {
   const playlistId = useQueryParam("id")[0];
   const [playlistData, setPlaylistData] = useState(null);
   const [matches, setMatches] = useState(null);
+  const [matchesOnly, setMathcesOnly] = useState(false);
 
   async function _findMatches(tracks, searchTerm, cb) {
     const results = await findMatches(tracks, searchTerm);
@@ -43,11 +44,11 @@ const Playlist = () => {
   useEffect(() => {
     async function read() {
       const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?market=from_token&fields=items(track(id%2Cname%2Cartists.name%2Calbum.name))&limit=100&offset=0`,
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?market=from_token&fields=items(track(id%2Cname%2Cartists.name%2Calbum(name%2Cimages)))&limit=100&offset=0`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user.auth.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         }
       );
@@ -55,7 +56,7 @@ const Playlist = () => {
       setPlaylistData(result.items);
     }
     read();
-  }, [playlistId, user.auth.access_token]);
+  }, [playlistId, user.access_token]);
 
   return (
     <Layout title="Playlist">
@@ -68,7 +69,16 @@ const Playlist = () => {
               _findMatches(playlistData, searchTerm, cb)
             }
           />
-          <PlaylistDetails tracks={playlistData} matches={matches} />
+          <PlaylistDetails
+            tracks={
+              matches && matchesOnly
+                ? playlistData.filter(({ track }) => matches.includes(track.id))
+                : playlistData
+            }
+            matches={matches}
+            matchesOnly={matchesOnly}
+            setMathcesOnly={setMathcesOnly}
+          />
         </>
       )}
     </Layout>
@@ -100,14 +110,26 @@ const LyricLookerUpper = ({ handleSearch }) => {
       <button type="button" onClick={handleClick} disabled={searching}>
         Search
       </button>
+      {searching ? <p>This may take a moment</p> : null}
     </div>
   );
 };
 
-const PlaylistDetails = ({ tracks, matches }) => {
+const PlaylistDetails = ({ tracks, matches, matchesOnly, setMathcesOnly }) => {
   console.log({ tracks });
   return (
     <div>
+      {matches ? (
+        <>
+          <input
+            name="matches-only"
+            type="checkbox"
+            checked={matchesOnly}
+            onClick={() => setMathcesOnly(prev => !prev)}
+          />
+          <label htmlFor="matches-only">Matches only</label>
+        </>
+      ) : null}
       {tracks.map(({ track }, index) => (
         <div key={track.id}>
           <div>{index + 1}.</div>
@@ -119,6 +141,13 @@ const PlaylistDetails = ({ tracks, matches }) => {
           <div>
             Match?{" "}
             {matches ? (matches.includes(track.id) ? "YESSS" : "no :(") : "N/A"}
+          </div>
+          <div>
+            <img
+              src={track.album.images[0].url}
+              alt={track.album.name}
+              height="100"
+            />
           </div>
           <hr />
         </div>

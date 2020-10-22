@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
+import { navigate } from "gatsby";
 import Layout from "../components/layout";
 import AuthenticationContext from "../components/authenticationContext";
-import { navigate } from "gatsby";
 
 function getAuthValues(hash) {
   let authParams = {};
@@ -15,12 +15,12 @@ function getAuthValues(hash) {
 }
 
 const Callback = () => {
-  const { setUser } = useContext(AuthenticationContext);
+  const { login } = useContext(AuthenticationContext);
   useEffect(() => {
-    const auth = getAuthValues(window.location.hash);
-    setUser(cur => ({ ...cur, auth }));
+    const user = getAuthValues(window.location.hash);
+    login(user);
     navigate("/");
-  }, [setUser]);
+  }, []);
 
   return <Layout title="Callback">hi</Layout>;
 };
