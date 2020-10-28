@@ -14,7 +14,7 @@ function getAuthValues(hash) {
   return authParams;
 }
 
-const Callback = () => {
+const CallbackContainer = () => {
   const auth = useContext(AuthenticationContext);
 
   useEffect(() => {
@@ -24,7 +24,9 @@ const Callback = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <Layout title="Callback">hi</Layout>;
+  return <CallbackView />;
 };
 
-export default Callback;
+const CallbackView = () => <Layout title="Callback">hi</Layout>;
+
+export default CallbackContainer;

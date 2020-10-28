@@ -97,7 +97,7 @@ const PlaylistView = ({
   setMathcesOnly,
 }) => (
   <div style={{ display: "flex", justifyContent: "center" }}>
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", marginBottom: "80px" }}>
       <LyricLookerUpper
         handleSearch={(searchTerm, cb) =>
           _findMatches(playlistData, searchTerm, cb)

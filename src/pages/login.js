@@ -2,10 +2,10 @@ import React from "react";
 import Layout from "../components/layout";
 import Login from "../components/login";
 
-const LoginPage = () => (
+const LoginView = () => (
   <Layout title="Login">
     <Login />
   </Layout>
 );
 
-export default LoginPage;
+export default LoginView;

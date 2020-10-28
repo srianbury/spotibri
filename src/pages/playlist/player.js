@@ -37,6 +37,7 @@ const Player = () => {
   return (
     <div
       style={{
+        height: "80px",
         position: "fixed",
         left: 0,
         bottom: 0,

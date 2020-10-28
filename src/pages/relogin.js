@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/layout";
 import Login from "../components/login";
 
-const ReLoginPage = () => (
+const ReLoginView = () => (
   <Layout title="Login Again">
     <p>
       Sorry! Your auth token expired and I haven't implemented a way to refresh
@@ -12,4 +12,4 @@ const ReLoginPage = () => (
   </Layout>
 );
 
-export default ReLoginPage;
+export default ReLoginView;
