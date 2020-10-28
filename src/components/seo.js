@@ -69,7 +69,12 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
+      />
+    </Helmet>
   );
 }
 

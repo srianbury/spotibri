@@ -23,16 +23,17 @@ const Layout = ({ title, children }) => {
   `);
 
   return (
-    <>
+    <div>
       <SEO title={title} />
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header
+        siteTitle={data.site.siteMetadata?.title || `Title`}
+        pageTitle={title}
+      />
       <div>
-        <div>
-          <h1>{title}</h1>
-        </div>
-        <main>{children}</main>
+        <div className="pure-g"></div>
+        <main style={{ margin: "20px" }}>{children}</main>
       </div>
-    </>
+    </div>
   );
 };
 
