@@ -21,39 +21,47 @@ const PlayerProvider = ({ children }) => {
   );
 };
 
-const Player = () => {
-  const { previewUrl } = useContext(PlayerContext);
+const PlayerContainer = () => {
+  const playerContext = useContext(PlayerContext);
 
   const playerRef = useCallback(
     player => {
       if (player) {
-        player.src = previewUrl;
+        player.src = playerContext ? playerContext.previewUrl : null;
         player.play();
       }
     },
-    [previewUrl]
+    [playerContext]
   );
 
   return (
-    <div
-      style={{
-        height: "80px",
-        position: "fixed",
-        left: 0,
-        bottom: 0,
-        width: "100%",
-        backgroundColor: "red",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
-      <audio ref={playerRef} controls>
-        <source src={previewUrl} type="audio/mpeg" />
-        <track kind="captions" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <PlayerView
+      playerRef={playerRef}
+      previewUrl={playerContext ? playerContext.previewUrl : null}
+    />
   );
 };
 
-export { PlayerProvider, PlayerContext, Player };
+const PlayerView = ({ playerRef, previewUrl }) => (
+  <div
+    style={{
+      height: "80px",
+      position: "fixed",
+      left: 0,
+      bottom: 0,
+      width: "100%",
+      backgroundColor: "red",
+      color: "white",
+      textAlign: "center",
+    }}
+  >
+    <audio ref={playerRef} controls>
+      <source src={previewUrl} type="audio/mpeg" />
+      <track kind="captions" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+);
+
+export default PlayerContainer;
+export { PlayerProvider, PlayerContext, PlayerContainer as Player };
