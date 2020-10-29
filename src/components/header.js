@@ -8,52 +8,35 @@ import Logout from "./logout";
 const Header = ({ siteTitle, pageTitle }) => {
   const auth = useContext(AuthenticationContext);
   return (
-    <header className="pure-g" style={{ backgroundColor: "#d3d3d3" }}>
-      <div className="pure-u-1-3">
-        <div className="d-flex">
-          <div className="margin-left-20">
+    <header
+      className="d-flex justify-content-between p-1"
+      style={{ backgroundColor: "#d3d3d3" }}
+    >
+      <div>
+        <div>
+          <div>
             <h3>{pageTitle}</h3>
           </div>
         </div>
       </div>
-      <div className="pure-u-1-3 text-align-center">
+
+      <div>
         <h3>
-          <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
-            {siteTitle}
-          </Link>
+          <Link to="/">{siteTitle}</Link>
         </h3>
       </div>
-      <div className="pure-u-1-3">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            height: "100%",
-          }}
-        >
-          <div className="margin-right-20" style={{ alignSelf: "center" }}>
-            <Link
-              to="/"
-              style={{
-                display: "inline",
-                textDecoration: "none",
-                color: "#000",
-              }}
-            >
-              Home
-            </Link>
-            <div style={{ display: "inline", marginLeft: "10px" }}>
-              {auth && auth.user ? <Logout /> : <Login />}
-            </div>
-          </div>
+
+      <div className="d-flex flex-wrap align-content-center">
+        <Link to="/" className="d-inline mr-1 align-self-center">
+          Home
+        </Link>
+        <div className="d-inline">
+          {auth && auth.user ? <Logout /> : <Login />}
         </div>
       </div>
     </header>
   );
 };
-
-//
-//
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

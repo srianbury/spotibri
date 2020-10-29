@@ -7,8 +7,7 @@ const Logout = () => {
     <button
       type="button"
       onClick={() => logout()}
-      className="pure-button"
-      style={{ fontSize: "85%" }}
+      className="btn btn-secondary btn-sm"
     >
       Logout
     </button>
