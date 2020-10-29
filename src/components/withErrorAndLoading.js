@@ -1,9 +1,8 @@
 import React from "react";
-import ErrorScreen from "./Error";
+import ErrorScreen from "./error";
 
 const withErrorAndLoading = Component => ({ error, loading, ...rest }) => {
   if (error) {
-    console.log({ error });
     return <ErrorScreen error={error} />;
   }
 
