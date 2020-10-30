@@ -98,7 +98,7 @@ const PlaylistViewBase = ({
   matchesOnly,
   setMatchesOnly,
 }) => (
-  <div style={{ marginBottom: "80px" }}>
+  <div style={{ marginBottom: "105px" }}>
     <LyricLookerUpperContainer
       handleSearch={(searchTerm, cb) =>
         _findMatches(playlistData, searchTerm, cb)
@@ -164,7 +164,7 @@ const LyricLookerUpperView = ({
             />
             <div className="input-group-append">
               <button
-                class="btn btn-success"
+                className="btn btn-success"
                 type="submit"
                 onClick={handleClick}
                 disabled={searching}
@@ -186,14 +186,11 @@ const PlaylistDetailsContainer = ({
   matchesOnly,
   setMatchesOnly,
 }) => {
-  const { setPreview } = useContext(PlayerContext);
-
   return (
     <PlaylistDetailsView
       matchesOnly={matchesOnly}
       matches={matches}
       setMatchesOnly={setMatchesOnly}
-      setPreview={setPreview}
       tracks={tracks}
     />
   );
@@ -204,7 +201,6 @@ const PlaylistDetailsView = ({
   matches,
   setMatchesOnly,
   tracks,
-  setPreview,
 }) => (
   <div>
     <div>
@@ -235,10 +231,7 @@ const PlaylistDetailsView = ({
           <tr key={track.id}>
             <TdMiddle width="2">{index + 1}</TdMiddle>
             <TdMiddle width="2">
-              <PreviewButton
-                previewUrl={track.preview_url}
-                setPreview={setPreview}
-              />
+              <PreviewButton track={track} />
             </TdMiddle>
             <TdMiddle width="32">
               <div className="container row">
@@ -270,17 +263,20 @@ const TdMiddle = ({ width, children }) => (
   <td style={{ verticalAlign: "middle", width: `${width}%` }}>{children}</td>
 );
 
-const PreviewButton = ({ previewUrl, setPreview }) => (
-  <button
-    type="button"
-    onClick={previewUrl ? () => setPreview(previewUrl) : () => {}}
-    disabled={!previewUrl}
-    className="btn btn-sm"
-    style={{ backgroundColor: "#1DB954", color: "#fff" }}
-  >
-    Play
-  </button>
-);
+const PreviewButton = ({ track }) => {
+  const { handlePlay, getPlayText } = useContext(PlayerContext);
+  return (
+    <button
+      type="button"
+      onClick={track.preview_url ? () => handlePlay(track) : () => {}}
+      disabled={!track.preview_url}
+      className="btn btn-sm d-flex flex-wrap align-content-center"
+      style={{ backgroundColor: "#1DB954", color: "#fff" }}
+    >
+      {getPlayText(track.preview_url)}
+    </button>
+  );
+};
 
 /*
 <div key={track.id}>
