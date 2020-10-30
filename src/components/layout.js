@@ -29,9 +29,8 @@ const Layout = ({ title, children }) => {
         siteTitle={data.site.siteMetadata?.title || `Title`}
         pageTitle={title}
       />
-      <div>
-        <div className="pure-g"></div>
-        <main style={{ margin: "20px" }}>{children}</main>
+      <div className="container">
+        <main>{children}</main>
       </div>
     </div>
   );

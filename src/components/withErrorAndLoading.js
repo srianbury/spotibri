@@ -1,5 +1,6 @@
 import React from "react";
 import ErrorScreen from "./error";
+import Loading from "./loading";
 
 const withErrorAndLoading = Component => ({ error, loading, ...rest }) => {
   if (error) {
@@ -7,7 +8,7 @@ const withErrorAndLoading = Component => ({ error, loading, ...rest }) => {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return <Component {...rest} />;

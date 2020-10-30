@@ -72,20 +72,22 @@ const PlaylistContainer = () => {
   }, [auth.user.access_token, playlistId]);
 
   return (
-    <Layout title="Lyric Looker Upper">
+    <>
       <PlayerProvider>
-        <PlaylistView
-          error={null}
-          loading={playlistData === null}
-          _findMatches={_findMatches}
-          matches={matches}
-          playlistData={playlistData}
-          matchesOnly={matchesOnly}
-          setMatchesOnly={setMatchesOnly}
-        />
+        <Layout title="Lyric Looker Upper">
+          <PlaylistView
+            error={null}
+            loading={playlistData === null}
+            _findMatches={_findMatches}
+            matches={matches}
+            playlistData={playlistData}
+            matchesOnly={matchesOnly}
+            setMatchesOnly={setMatchesOnly}
+          />
+        </Layout>
         <Player />
       </PlayerProvider>
-    </Layout>
+    </>
   );
 };
 
@@ -96,24 +98,22 @@ const PlaylistViewBase = ({
   matchesOnly,
   setMatchesOnly,
 }) => (
-  <div style={{ display: "flex", justifyContent: "center" }}>
-    <div style={{ width: "100%", marginBottom: "80px" }}>
-      <LyricLookerUpperContainer
-        handleSearch={(searchTerm, cb) =>
-          _findMatches(playlistData, searchTerm, cb)
-        }
-      />
-      <PlaylistDetailsContainer
-        tracks={
-          matches && matchesOnly
-            ? playlistData.filter(({ track }) => matches.includes(track.id))
-            : playlistData
-        }
-        matches={matches}
-        matchesOnly={matchesOnly}
-        setMatchesOnly={setMatchesOnly}
-      />
-    </div>
+  <div style={{ marginBottom: "80px" }}>
+    <LyricLookerUpperContainer
+      handleSearch={(searchTerm, cb) =>
+        _findMatches(playlistData, searchTerm, cb)
+      }
+    />
+    <PlaylistDetailsContainer
+      tracks={
+        matches && matchesOnly
+          ? playlistData.filter(({ track }) => matches.includes(track.id))
+          : playlistData
+      }
+      matches={matches}
+      matchesOnly={matchesOnly}
+      setMatchesOnly={setMatchesOnly}
+    />
   </div>
 );
 const PlaylistView = withErrorAndLoading(PlaylistViewBase);
@@ -145,27 +145,35 @@ const LyricLookerUpperView = ({
   setSearchTerm,
   handleClick,
 }) => (
-  <div style={{ display: "flex", justifyContent: "center" }}>
-    <div style={{ marginBottom: "20px", textAlign: "center" }}>
-      <form className="pure-form pure-form-stacked">
-        <label htmlFor="lyric-search">Search</label>
-        <input
-          disabled={searching}
-          name="lyric-search"
-          type="text"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          style={{ width: "100%" }}
-          placeholder="Search"
-        />
-        <button
-          type="submit"
-          onClick={handleClick}
-          disabled={searching}
-          className="pure-button pure-button-primary"
-        >
-          Search
-        </button>
+  <div>
+    <div>
+      <form>
+        <div className="form-group">
+          <label htmlFor="lyric-search" className="mb-0">
+            Search
+          </label>
+          <div className="input-group">
+            <input
+              disabled={searching}
+              name="lyric-search"
+              type="text"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              placeholder="Search"
+              className="form-control"
+            />
+            <div className="input-group-append">
+              <button
+                class="btn btn-success"
+                type="submit"
+                onClick={handleClick}
+                disabled={searching}
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
       {searching ? <p>This will take a moment</p> : null}
     </div>
@@ -199,7 +207,7 @@ const PlaylistDetailsView = ({
   setPreview,
 }) => (
   <div>
-    <div style={{ textAlign: "center" }}>
+    <div>
       <input
         name="matches-only"
         type="checkbox"
@@ -207,51 +215,111 @@ const PlaylistDetailsView = ({
         disabled={!matches}
         onChange={() => setMatchesOnly(prev => !prev)}
       />
-      <label htmlFor="matches-only" style={{ marginLeft: "5px" }}>
+      <label htmlFor="matches-only" className="pl-1">
         Show matches only
       </label>
       {matches ? <NumMatchesView num={matches.length} /> : null}
     </div>
-    {tracks.map(({ track }, index) => (
-      <div key={track.id} style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ width: "80%" }}>
-          <div>
-            <hr />
-            <div>{index + 1}.</div>
-            <div>Name: {track.name}</div>
-            <div>
-              Artists: {track.artists.map(artist => artist.name).join(", ")}
-            </div>
-            <div>Album: {track.album.name}</div>
-            <div>
-              Match:{" "}
-              {matches
-                ? matches.includes(track.id)
-                  ? "YESSS"
-                  : "no :("
-                : "N/A"}
-            </div>
-            <div>
-              <img
-                src={track.album.images[0].url}
-                alt={track.album.name}
-                height="100"
+    <table className="table table-sm">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Play</th>
+          <th>Title</th>
+          <th>Artist(s)</th>
+          <th>Album</th>
+        </tr>
+      </thead>
+      <tbody>
+        {tracks.map(({ track }, index) => (
+          <tr key={track.id}>
+            <TdMiddle width="2">{index + 1}</TdMiddle>
+            <TdMiddle width="2">
+              <PreviewButton
+                previewUrl={track.preview_url}
+                setPreview={setPreview}
               />
-            </div>
-            {track.preview_url ? (
-              <button
-                type="button"
-                onClick={() => setPreview(track.preview_url)}
-              >
-                Preview
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    ))}
+            </TdMiddle>
+            <TdMiddle width="32">
+              <div className="container row">
+                <div className="col-2 d-flex flex-wrap align-content-center pl-0">
+                  <img
+                    src={track.album.images[0].url}
+                    alt={track.album.name}
+                    height="40px"
+                    width="40px"
+                  />
+                </div>
+                <div className="col-10 col-10 d-flex flex-wrap align-content-center pl-1">
+                  <div>{track.name}</div>
+                </div>
+              </div>
+            </TdMiddle>
+            <TdMiddle width="32">
+              {track.artists.map(artist => artist.name).join(", ")}
+            </TdMiddle>
+            <TdMiddle width="32">{track.album.name}</TdMiddle>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
 );
+
+const TdMiddle = ({ width, children }) => (
+  <td style={{ verticalAlign: "middle", width: `${width}%` }}>{children}</td>
+);
+
+const PreviewButton = ({ previewUrl, setPreview }) => (
+  <button
+    type="button"
+    onClick={previewUrl ? () => setPreview(previewUrl) : () => {}}
+    disabled={!previewUrl}
+    className="btn btn-sm"
+    style={{ backgroundColor: "#1DB954", color: "#fff" }}
+  >
+    Play
+  </button>
+);
+
+/*
+<div key={track.id}>
+  <div>
+    <div>
+      <hr />
+      <div>{index + 1}.</div>
+      <div>Name: {track.name}</div>
+      <div>
+        Artists: {track.artists.map(artist => artist.name).join(", ")}
+      </div>
+      <div>Album: {track.album.name}</div>
+      <div>
+        Match:{" "}
+        {matches
+          ? matches.includes(track.id)
+            ? "YESSS"
+            : "no :("
+          : "N/A"}
+      </div>
+      <div>
+        <img
+          src={track.album.images[0].url}
+          alt={track.album.name}
+          height="100"
+        />
+      </div>
+      {track.preview_url ? (
+        <button
+          type="button"
+          onClick={() => setPreview(track.preview_url)}
+        >
+          Preview
+        </button>
+      ) : null}
+    </div>
+  </div>
+</div>
+*/
 
 const NumMatchesView = ({ num }) => {
   if (num === 0) {

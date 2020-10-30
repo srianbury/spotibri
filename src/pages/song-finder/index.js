@@ -61,10 +61,10 @@ const SongFinderView = ({ error, playlistsData, setPlaylistUrl }) => (
 );
 
 const PlaylistsViewBase = ({ playlists, goToPrevious, goToNext }) => (
-  <>
+  <div className="text-center">
     <ListPlaylistsView playlists={playlists} />
     <PaginationView goToPrevious={goToPrevious} goToNext={goToNext} />
-  </>
+  </div>
 );
 const PlaylistsView = withErrorAndLoading(withList(PlaylistsViewBase));
 
@@ -77,25 +77,25 @@ const ListPlaylistsView = ({ playlists }) => (
 );
 
 const PlaylistView = ({ playlist, index }) => (
-  <div className="pure-g" style={{ paddingTop: "10px" }}>
-    <div className="pure-u-1-3 text-align-end">
-      {playlist.images[0] ? (
-        <Link
-          to={`/playlist/?id=${playlist.id}`}
-          style={{ textDecoration: "none" }}
-        >
-          <img
-            src={playlist.images[0].url}
-            height="100px"
-            alt={playlist.name}
-          />
-        </Link>
-      ) : null}
+  <div className="container row pt-1 pb-1">
+    <div className="col-4 text-right">
+      <Link to={`/playlist/?id=${playlist.id}`}>
+        <img
+          src={
+            playlist && playlist.images && playlist.images[0]
+              ? playlist.images[0].url
+              : "https://i.pinimg.com/originals/7a/ec/a5/7aeca525afa2209807c15da821b2f2c6.png"
+          }
+          height="100px"
+          width="100px"
+          alt={playlist.name}
+        />
+      </Link>
     </div>
-    <div className="pure-u-2-3">
-      <div className="margin-left-20">
+    <div className="col-8 text-left pl-0">
+      <div>
         <h3>
-          <Link to={`/playlist/?id=${playlist.id}`} style={{ color: "black" }}>
+          <Link to={`/playlist/?id=${playlist.id}`}>
             {index + 1}. {playlist.name}
           </Link>
         </h3>
@@ -106,12 +106,12 @@ const PlaylistView = ({ playlist, index }) => (
 );
 
 const PaginationView = ({ goToPrevious, goToNext }) => (
-  <div className="ta-c mt-2">
+  <div className="pt-1 pb-2">
     <button
       type="button"
       onClick={goToPrevious}
       disabled={!goToPrevious}
-      className="mr-1"
+      className="btn btn-sm btn-secondary mr-1"
     >
       Prev
     </button>
@@ -119,7 +119,7 @@ const PaginationView = ({ goToPrevious, goToNext }) => (
       type="button"
       onClick={goToNext}
       disabled={!goToNext}
-      className="ml-1"
+      className="btn btn-sm btn-secondary ml-1"
     >
       Next
     </button>

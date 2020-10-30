@@ -44,16 +44,8 @@ const PlayerContainer = () => {
 
 const PlayerView = ({ playerRef, previewUrl }) => (
   <div
-    style={{
-      height: "80px",
-      position: "fixed",
-      left: 0,
-      bottom: 0,
-      width: "100%",
-      backgroundColor: "red",
-      color: "white",
-      textAlign: "center",
-    }}
+    className="navbar fixed-bottom navbar-dark bg-dark d-flex justify-content-center"
+    style={{ height: "70px" }}
   >
     <audio ref={playerRef} controls>
       <source src={previewUrl} type="audio/mpeg" />

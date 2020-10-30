@@ -9,15 +9,11 @@ const Header = ({ siteTitle, pageTitle }) => {
   const auth = useContext(AuthenticationContext);
   return (
     <header
-      className="d-flex justify-content-between p-1"
+      className="d-flex justify-content-between pt-1 pb-1 pl-2 pr-2 mb-2"
       style={{ backgroundColor: "#d3d3d3" }}
     >
-      <div>
-        <div>
-          <div>
-            <h3>{pageTitle}</h3>
-          </div>
-        </div>
+      <div className="d-flex flex-wrap align-content-center">
+        <h4>{pageTitle}</h4>
       </div>
 
       <div>

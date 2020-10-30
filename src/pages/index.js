@@ -4,22 +4,24 @@ import Layout from "../components/layout";
 
 const apps = [
   {
-    title: "Song Finder",
+    title: "Song Finder - Playlist",
     to: "/song-finder/",
+    description: "Search for lyrics within a playlist :)",
   },
 ];
 
 const IndexPage = () => (
   <Layout title="Home">
-    <p>Welcome to spotibry</p>
-    <p>Apps</p>
-    <ol>
+    <div className="container row">
       {apps.map(app => (
-        <Link key={app.title} to={app.to}>
-          <li>{app.title}</li>
-        </Link>
+        <div key={app.title} className="col-6">
+          <h3>
+            <Link to={app.to}>{app.title}</Link>
+          </h3>
+          <div>{app.description}</div>
+        </div>
       ))}
-    </ol>
+    </div>
   </Layout>
 );
 
